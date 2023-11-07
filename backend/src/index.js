@@ -1,7 +1,6 @@
 import app from "./app.js";
 import mongoose from "mongoose";
 
-// mongodb+srv://adeel:adeel342@cluster0.gah82ed.mongodb.net/todo
 
 const port = 3000;
 
@@ -10,7 +9,7 @@ const port = 3000;
 (async () => {
     try {
         // db connection
-        await mongoose.connect('mongodb+srv://adeel:adeel342@cluster0.gah82ed.mongodb.net/todo')
+        await mongoose.connect('db String')
         console.log("DB connected successfully");
 
         app.on("error", (err) => {
