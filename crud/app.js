@@ -6,12 +6,16 @@ const connectToDb = require('./config/db')
 
 const app = express();
 
+// Express middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(cors())
 
 // init connection to db 
 connectToDb()
 
-app.get('/', (req, res) => {
-    res.send('Hello world')
-})
+const userRoutes = require('./routes/userRoutes')
+app.use('/', userRoutes)
+
 // export default app; or
 module.exports = app;
