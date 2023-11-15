@@ -7,11 +7,14 @@ const userSchema = new mongoose.Schema({
         trim: true,
         maxLength: [20, 'Name must be less than 20 char']
     },
+    username: String,
     email: {
         type: String,
         required: [true, 'Email is required'],
         unique: true
-    }
+    },
+    phone: Number
+
 })
 
 module.exports = mongoose.model('User', userSchema)

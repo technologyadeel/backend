@@ -1,53 +1,38 @@
-const User = require('../models/userModel.js')
+const User = require('../models/userModel')
 
-exports.home =  (req, res) => {
-    res.send('Hello world')
-}
 
-exports.createUser = async (req, res) => {
-    // extract info
+exports.createIdea = async (req, res) => {
     try {
-        const {name, username, email, phone} = req.body
+        const { idea_name, author_name, idea_desc } = req.body;
 
-        // if(!name || !email) {
-        //     throw new Error("Name and email are required")
-        // }
+    const user = await User.create({
+        idea_name, 
+        author_name, 
+        idea_desc
+    })
 
-        // const userExist = User.findOne({email:email})
-
-        // if(userExist) {
-        //     throw new Error("User already exists")
-        // }
-
-        const user = await User.create({
-            name,
-            username,
-            email,
-            phone
-        })
-
-        res.status(201).json({
-            success: true,
-            message: "User created successfully",
-            user
-        })
+    res.status(200).json({
+        success: true,
+        message: "Idea created successfully",
+        user
+    })
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(400).json({
             success: false,
-            message: error.message,
+            message: error.message
+            
         })
-        
     }
 }
 
-exports.getUsers = async(req, res) => {
+exports.getIdea = async(req, res) => {
     try {
         const users = await User.find({})
 
         res.status(200).json({
             success: true,
-            message: "All users",
+            message: "All ideas",
             users
         })
     } catch (error) {
@@ -59,7 +44,7 @@ exports.getUsers = async(req, res) => {
     }
 }
 
-exports.editUser = async (req, res) => {
+exports.editIdea = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body)
         res.status(201).json({
@@ -76,7 +61,7 @@ exports.editUser = async (req, res) => {
     }
 }
 
-exports.deleteUser = async(req, res) => {
+exports.deleteIdea = async(req, res) => {
     try {
         const userId = req.params.id
         const user = await User.findByIdAndDelete(userId)
